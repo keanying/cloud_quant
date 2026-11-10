@@ -5,8 +5,8 @@ import CoinIcon from "../components/CoinIcon.vue";
 import Icon from "../components/Icon.vue";
 import { store, goSignal } from "../lib/store";
 import { MiniCharts } from "../lib/minicharts";
-import { VN, base, cls, f2, fp, mktCn, pct, sgn, sideCn } from "../lib/format";
-import { t, tFull, ptText } from "../lib/time";
+import { base, cls, f2, fp, mktCn, pct, sgn, sideCn } from "../lib/format";
+import { t, ptText } from "../lib/time";
 
 const router = useRouter();
 const d = computed(() => store.dash!);
@@ -93,6 +93,5 @@ const HEROWAVE = `<path d="M330 0H600V90C540 140 500 40 440 80S360 70 330 0Z" fi
         <div class="tu" style="margin-top:8px">{{ w.running ? `每 ${st.settings.worker.interval_sec} 秒一轮 · 下次约 ${w.next_run_in_sec ?? "—"} 秒后` : "可在风控页开启" }}<br>上次 {{ t(w.last_run) }}</div>
         <button class="btn ghost sm tile-act" @click="router.push('/risk')">风控与自动交易 →</button></div>
     </section>
-    <div class="note foot">系统化纸面 / 研究工具，不构成投资建议；实盘交易可能亏损全部本金。数据来自 {{ VN[st.settings.venue] }} 官方公共行情 · 更新于 {{ tFull(d.time) }}。</div>
   </div>
 </template>

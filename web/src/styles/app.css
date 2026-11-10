@@ -425,3 +425,9 @@ table.tbl{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:12.
 a.btn{text-decoration:none}
 /* Semi 图标为填充图形：不继承全局 svg 描边 */
 svg.semi-icon,svg.semi-icon *{stroke:none!important}
+/* 铺满窗口：平板贴住上 / 右 / 下边缘，只保留左侧给胶囊侧栏 */
+@media (min-width:761px){
+  .stage{padding:0 0 0 var(--pad)}
+  .shell{border-radius:var(--shell-r) 0 0 var(--shell-r)}
+}
+@media (min-width:761px) and (max-width:1180px){.rpanel{border-radius:0}}
