@@ -217,8 +217,28 @@ qtw/worker.py    后台自动交易线程
 qtw/vault.py     密钥加密存储
 qtw/live/        实盘签名与下单（闸门保护）
 qtw/app.py       FastAPI 接口
-static/          前端页面（原生 JS + lightweight-charts）
+web/             前端源码（Vue 3 + Vite + TypeScript，lightweight-charts，Semi Design 图标）
+static/          前端构建产物（由 web/ 构建生成并提交，后端直接提供，运行时无需 Node）
 tests/           单元测试
 ```
+
+## 前端开发（`web/`）
+
+前端用 Vue 3 + Vite + TypeScript 编写，构建产物输出到 `static/` 并随仓库提交，所以只运行后端（`./start.sh` 或 `python -m qtw serve`）不需要安装 Node。界面视觉与原生 JS 版本保持一致（同一份样式表 `web/src/styles/app.css`），图标来自 [Semi Design Icons](https://semi.design/zh-CN/basic/icon)（MIT）。
+
+```bash
+cd web
+npm install
+npm run dev      # http://127.0.0.1:5173 ，/api 自动代理到 127.0.0.1:8787（可用 QTW_BACKEND 覆盖）
+npm run build    # 类型检查 + 构建，输出到 ../static/（会清空 static/ 后重新生成）
+```
+
+修改前端后请执行 `npm run build` 并一起提交 `static/`。路由仍是 `#/dashboard`、`#/signals` 等哈希地址；`?nolive` 参数仍可关闭实时推送（无头截图用）。
+
+| 目录 | 内容 |
+|---|---|
+| `web/src/lib/` | 接口请求、全局状态与 SSE 实时推送（`store.ts`）、北京时间格式化、数字格式、图表封装 |
+| `web/src/components/` | 侧栏、顶部栏、右侧持仓面板、弹窗、K 线 / 权益图、图标等 |
+| `web/src/views/` | 8 个页面：总览、信号、回测、持仓、成交、风控、设置、帮助 |
 
 旧版命令行纸面系统仍在 `/workspace/quant-trading-system/`（Binance 行情，v1）。
